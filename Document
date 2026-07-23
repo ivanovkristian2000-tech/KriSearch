@@ -1,0 +1,39 @@
+Нужные таблицы проекта:
+
+1. film
+   - хранит фильмы
+   - важные поля: film_id, title, release_year
+
+2. film_category
+   - связывает фильмы и жанры
+   - важные поля: film_id, category_id
+
+3. category
+   - хранит жанры
+   - ожидаемые поля: category_id, name
+
+
+
+Основные таблицы проекта:
+
+1. film
+   Назначение: хранит фильмы.
+   Важные поля:
+   - film_id
+   - title
+   - release_year
+   - description
+   - rating
+   - length
+
+2. category
+   Назначение: хранит жанры.
+   Важные поля:
+   - category_id
+   - name
+
+3. film_category
+   Назначение: связывает фильмы и жанры.
+   Важные поля:
+   - film_id
+   - category_id
