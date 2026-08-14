@@ -44,7 +44,7 @@ class MovieDB(MySQLConnector):
     """ Execute SQL queries for movie search """
 
     def get_genres(self):
-        self.cursor.execute("SELECT name FROM category")
+        self.cursor.execute("SELECT category_id, name FROM category ORDER BY category_id")
         genres = self.cursor.fetchall()
         return genres
 
@@ -95,7 +95,7 @@ class MovieDB(MySQLConnector):
             category AS c
             ON fc.category_id = c.category_id
         WHERE
-            c.name = %s
+            c.category_id = %s
             AND f.release_year BETWEEN %s AND %s
         LIMIT %s 
         OFFSET %s
@@ -131,7 +131,7 @@ class MovieDB(MySQLConnector):
             category AS c
             ON fc.category_id = c.category_id
         WHERE
-            c.name = %s
+            c.category_id = %s
             AND f.release_year BETWEEN %s AND %s
         """, (category, year_from, year_to))
 
@@ -155,7 +155,7 @@ if __name__ == "__main__":
         print(mv.count_by_title("AIR"))
 
         print("\nSearch by genre and years:")
-        print(mv.search_by_category_and_years("Action", 2000, 2012, 10, 0))
+        print(mv.search_by_category_and_years("1", 2000, 2012, 10, 0))
 
         print("\nCount by genre and years:")
         print(mv.count_by_category_and_years("Action", 2000, 2012))
