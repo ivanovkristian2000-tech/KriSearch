@@ -71,3 +71,62 @@ def print_latest_unique_searches(searches):
         headers=["#", "Search type", "Params", "Results", "Last timestamp"],
         tablefmt="grid"
     ))
+
+def print_title_movies(movies, start_number=1):
+    if not movies:
+        print("\nФильмы не найдены.")
+        return
+
+    table = []
+
+    for i, movie in enumerate(movies, start=start_number):
+        table.append([
+            i,
+            movie[0],
+            movie[1]
+        ])
+
+    print(tabulate(
+        table,
+        headers=["#", "Title", "Year"],
+        tablefmt="grid"
+    ))
+
+
+def print_genre_year_movies(movies, start_number=1):
+    if not movies:
+        print("\nФильмы не найдены.")
+        return
+
+    table = []
+
+    for i, movie in enumerate(movies, start=start_number):
+        table.append([
+            i,
+            movie[0],
+            movie[1],
+            movie[2]
+        ])
+
+    print(tabulate(
+        table,
+        headers=["#", "Title", "Year", "Genre"],
+        tablefmt="grid"
+    ))
+
+def print_genres(genres):
+    table = []
+
+    for genre_id, genre_name in genres:
+        table.append([genre_id, genre_name])
+
+    print("\nСписок жанров:")
+    print(tabulate(
+        table,
+        headers=["#", "Genre"],
+        tablefmt="grid"
+    ))
+
+def print_year_range(year_range):
+    print("\nДиапазон годов:")
+    print(f"{year_range[0]}-{year_range[1]}")

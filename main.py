@@ -1,7 +1,13 @@
 from mysql_connector import MovieDB
 from mongo_logger import MongoLogger
 from log_stats import MongoStats
-from formatter import print_top_searches, print_latest_unique_searches
+from formatter import (
+    print_top_searches,
+    print_latest_unique_searches,
+    print_title_movies,
+    print_genre_year_movies,
+    print_genres, print_year_range
+)
 from local_settings import dbconfig
 
 
@@ -61,8 +67,7 @@ def search_by_title_menu(db, logger):
             while True:
                 result = db.search_by_title(keyword, limit=page_size, offset=offset)
 
-                for i, movie in enumerate(result, start=offset + 1):
-                    print(f"{i}. {movie[0]} — {movie[1]}")
+                print_title_movies(result, start_number=offset + 1)
 
                 if offset + page_size >= total_results:
                     print("\nБольше результатов нет.")
@@ -90,16 +95,11 @@ def search_by_title_menu(db, logger):
 
 def search_by_genre_and_years_menu(db, logger):
 
-    print("Список жанров: ")
     genres = db.get_genres()
+    print_genres(genres)
 
-    for i, genre in genres:
-        print(f"{i}. {genre}")
-
-    print("\nДиапазон годов: ")
     year_range = db.get_year_range()
-
-    print(f"{year_range[0]}-{year_range[1]} ")
+    print_year_range(year_range)
 
     while True:
         user_genre = input("Введите номер жанра: ").strip()
@@ -175,8 +175,7 @@ def search_by_genre_and_years_menu(db, logger):
             limit=page_size,
             offset=offset
         )
-        for i, movie in enumerate(result, start=offset + 1):
-            print(f"{i}. {movie[0]} — {movie[1]} — {movie[2]}")
+        print_genre_year_movies(result, start_number=offset + 1)
 
         if offset + page_size >= total_results:
             print("\nРезультатов больше нет.")
