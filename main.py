@@ -1,10 +1,12 @@
 from mysql_connector import MovieDB
 from mongo_logger import MongoLogger
-from local_settings import dbconfig, MONGODB_URL_WRITE
+from log_stats import MongoStats
+from formatter import print_top_searches, print_latest_unique_searches
+from local_settings import dbconfig
 
 
 
-def main_menu(db, logger):
+def main_menu(db, logger, stats):
 
     while True:
 
@@ -21,7 +23,7 @@ def main_menu(db, logger):
         elif user_input == "2":
             search_by_genre_and_years_menu(db, logger)
         elif user_input == "3":
-            print("menu 3")
+            statistics_menu(stats)
         elif user_input == "4":
             break
         else:
@@ -190,7 +192,12 @@ def search_by_genre_and_years_menu(db, logger):
             print("\nНекорректный ввод.")
             break
 
+def statistics_menu(stats):
+    top_searches = stats.get_top_searches()
+    latest_unique = stats.get_latest_unique_searches()
 
+    print_top_searches(top_searches)
+    print_latest_unique_searches(latest_unique)
 
 
 
@@ -206,8 +213,8 @@ def search_by_genre_and_years_menu(db, logger):
 
 
 if __name__ == "__main__":
-    with MovieDB(dbconfig) as db, MongoLogger(MONGODB_URL_WRITE) as logger:
-        main_menu(db, logger)
+    with MovieDB(dbconfig) as db, MongoLogger() as logger, MongoStats() as stats:
+        main_menu(db, logger, stats)
 
 
 
