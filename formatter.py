@@ -1,7 +1,6 @@
 from tabulate import tabulate
 
 
-
 def format_search_params(search_type, params):
     if search_type == "keyword":
         return f"title keyword: {params['keyword']}"
@@ -72,6 +71,7 @@ def print_latest_unique_searches(searches):
         tablefmt="grid"
     ))
 
+
 def print_title_movies(movies, start_number=1):
     if not movies:
         print("\nФильмы не найдены.")
@@ -114,6 +114,7 @@ def print_genre_year_movies(movies, start_number=1):
         tablefmt="grid"
     ))
 
+
 def print_genres(genres):
     table = []
 
@@ -126,6 +127,7 @@ def print_genres(genres):
         headers=["#", "Genre"],
         tablefmt="grid"
     ))
+
 
 def print_year_range(year_range):
     print("\nДиапазон годов:")

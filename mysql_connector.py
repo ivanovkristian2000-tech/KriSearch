@@ -2,7 +2,6 @@ import mysql.connector
 from local_settings import dbconfig
 
 
-
 class MySQLConnector:
     """ Context manager for MySQL connection """
 
@@ -48,16 +47,15 @@ class MovieDB(MySQLConnector):
         genres = self.cursor.fetchall()
         return genres
 
-
     def get_year_range(self):
         self.cursor.execute(
-        """
-        SELECT 
-            min(release_year) AS min_year,
-            max(release_year) AS max_year
-        FROM
-            film       
-        """)
+            """
+            SELECT 
+                min(release_year) AS min_year,
+                max(release_year) AS max_year
+            FROM
+                film       
+            """)
 
         years = self.cursor.fetchone()
         return years
@@ -78,7 +76,6 @@ class MovieDB(MySQLConnector):
 
         title = self.cursor.fetchall()
         return title
-
 
     def search_by_category_and_years(self, category, year_from, year_to, limit=10, offset=0):
         self.cursor.execute("""
@@ -137,7 +134,6 @@ class MovieDB(MySQLConnector):
 
         count_category = self.cursor.fetchone()
         return count_category[0]
-
 
 
 if __name__ == "__main__":

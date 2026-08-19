@@ -189,7 +189,7 @@ smoke_tests.py
 Запуск smoke-тестов:
 
 ```bash
-python smoke_tests.py
+python test_smoke.py
 ```
 
 Если всё работает, в консоли появится:

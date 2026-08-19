@@ -1,7 +1,5 @@
 from pymongo import MongoClient
-
 from local_settings import MONGODB_URL_WRITE
-
 
 COLLECTION_NAME = "final_project_060326_ptm_Kristian_Ivanov"
 

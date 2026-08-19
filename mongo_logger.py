@@ -1,5 +1,4 @@
 from datetime import datetime, timezone
-
 from mongo_connection import MongoConnection
 
 
@@ -14,4 +13,5 @@ class MongoLogger(MongoConnection):
             "results_count": results_count
         }
 
-        self.collection.insert_one(log_document)
+        result = self.collection.insert_one(log_document)
+        return result.inserted_id

@@ -74,7 +74,6 @@ class MongoStats(MongoConnection):
         return list(self.collection.aggregate(pipeline))
 
 
-
 if __name__ == "__main__":
     from formatter import print_top_searches, print_latest_unique_searches
 

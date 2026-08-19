@@ -11,9 +11,7 @@ from formatter import (
 from local_settings import dbconfig
 
 
-
 def main_menu(db, logger, stats):
-
     while True:
 
         print("\nKriSearch")
@@ -34,7 +32,6 @@ def main_menu(db, logger, stats):
             break
         else:
             print("\nНе корректный ввод")
-
 
 
 def search_by_title_menu(db, logger):
@@ -92,9 +89,7 @@ def search_by_title_menu(db, logger):
             print("\nНе корректный ввод")
 
 
-
 def search_by_genre_and_years_menu(db, logger):
-
     genres = db.get_genres()
     print_genres(genres)
 
@@ -191,6 +186,7 @@ def search_by_genre_and_years_menu(db, logger):
             print("\nНекорректный ввод.")
             break
 
+
 def statistics_menu(stats):
     top_searches = stats.get_top_searches()
     latest_unique = stats.get_latest_unique_searches()
@@ -199,21 +195,6 @@ def statistics_menu(stats):
     print_latest_unique_searches(latest_unique)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     with MovieDB(dbconfig) as db, MongoLogger() as logger, MongoStats() as stats:
         main_menu(db, logger, stats)
-
-
-
