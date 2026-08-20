@@ -9,6 +9,8 @@ from formatter import (
     print_genres, print_year_range
 )
 from local_settings import dbconfig
+import mysql.connector
+from pymongo.errors import PyMongoError
 
 
 def main_menu(db, logger, stats):
@@ -42,7 +44,7 @@ def search_by_title_menu(db, logger):
         user_input = input("Введите номер: ")
 
         if user_input == "1":
-            keyword = input("\nВведите название фильма: ").strip()
+            keyword = input("\nВведите название фильма: ").strip().upper()
 
             if not keyword:
                 print("\nВведите ключевое слово.")
@@ -196,5 +198,21 @@ def statistics_menu(stats):
 
 
 if __name__ == "__main__":
-    with MovieDB(dbconfig) as db, MongoLogger() as logger, MongoStats() as stats:
-        main_menu(db, logger, stats)
+    try:
+        with MovieDB(dbconfig) as db, MongoLogger() as logger, MongoStats() as stats:
+            main_menu(db, logger, stats)
+
+    except mysql.connector.Error:
+        print("\nОшибка подключения к MySQL.")
+        print("Проверьте интернет-соединение или попробуйте позже.")
+
+    except PyMongoError:
+        print("\nОшибка подключения к MongoDB.")
+        print("Проверьте интернет-соединение или попробуйте позже.")
+
+    except KeyboardInterrupt:
+        print("\nПрограмма остановлена пользователем.")
+
+    except Exception as error:
+        print("\nПроизошла непредвиденная ошибка.")
+        print(f"Детали ошибки: {error}")
